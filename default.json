@@ -6,7 +6,7 @@
     ":semanticCommitTypeAll(chore)"
   ],
 
-  "schedule": ["before 5am on monday"],
+  "schedule": ["every weekend"],
 
   "packageRules": [
     {
