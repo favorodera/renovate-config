@@ -11,7 +11,6 @@ Opinionated [Renovate](https://docs.renovatebot.com/) configuration for keeping 
 - Disables patch updates
 - Delays minor and major updates by 7 days
 - Requires strict internal checks for minor and major updates
-- Enables lock file maintenance
 
 ## Usage
 
