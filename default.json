@@ -5,9 +5,9 @@
     ":dependencyDashboard",
     ":semanticCommitTypeAll(chore)"
   ],
-
-  "schedule": ["every weekend"],
-
+  
+  "schedule": ["before 5am on the last Saturday of the month"],
+  
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],
