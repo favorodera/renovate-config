@@ -5,14 +5,62 @@
     ":dependencyDashboard",
     ":semanticCommitTypeAll(chore)"
   ],
-  
-  "schedule": ["* * 25-31 * 0,6"],
-  
+  "schedule": [
+    "before 4am on monday"
+  ],
+  "timezone": "UTC",
+  "prConcurrentLimit": 8,
+  "prHourlyLimit": 3,
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "minor", "major"],
+      "description": "Patch + minor: short delay, trust CI, automerge",
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "minimumReleaseAge": "3 days",
+      "internalChecksFilter": "strict",
+      "groupName": "non-major dependencies",
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "packageRules": [
+        {
+          "description": "Pin exact versions for libraries, so pkg.pr previews build against a known, reviewable version",
+          "matchDepTypes": [
+            "dependencies"
+          ],
+          "rangeStrategy": "pin"
+        }
+      ]
+    },
+    {
+      "description": "Major: longer delay, no automerge, reviewed by hand",
+      "matchUpdateTypes": [
+        "major"
+      ],
       "minimumReleaseAge": "7 days",
-      "internalChecksFilter": "strict"
+      "internalChecksFilter": "strict",
+      "automerge": false,
+      "schedule": [
+        "before 4am on the first day of the month"
+      ]
+    },
+    {
+      "description": "Lockfile-only maintenance, low risk, safe to automerge",
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "automerge": true
     }
-  ]
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": [
+      "before 4am on sunday"
+    ]
+  }
 }

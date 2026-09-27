@@ -1,15 +1,17 @@
 # Renovate Config
 
-Opinionated [Renovate](https://docs.renovatebot.com/) configuration for keeping dependencies up to date with minimal noise.
+Opinionated [Renovate](https://docs.renovatebot.com/) configuration for keeping dependencies up to date with minimal noise, built around CI-gated automerge.
 
 ## What it does
 
 * Extends Renovate's recommended configuration
 * Enables the Dependency Dashboard
 * Uses semantic commits with `chore` as the commit type
-* Runs during the final weekend window of each month
-* Delays patch, minor and major updates by 7 days
-* Requires strict internal checks for all updates
+* Runs patch/minor updates weekly, grouped into a single PR
+* Runs major updates monthly, left for manual review
+* Automerges patch/minor updates and lockfile maintenance once CI passes
+* Pins library dependencies to exact versions for reviewable, individually-tested bumps
+* Limits concurrent and hourly PR volume across repos
 
 ## Usage
 
@@ -21,12 +23,20 @@ Add the following to `.github/renovate.json` or `renovate.json`:
 }
 ```
 
+Requires your repo's branch protection to require your CI checks (lint, build, typecheck, test, and pkg.pr for libraries) before merge, and "Allow auto-merge" enabled in repo settings — this is what makes automerge safe, not Renovate itself.
+
 ## Update policy
 
-* **Patch updates:** Allowed after a 7-day release age
-* **Minor updates:** Allowed after a 7-day release age
-* **Major updates:** Allowed after a 7-day release age
-* **Internal checks:** Strict for all updates
-* **Schedule:** Final weekend window of every month
+| Update type | Release age delay | Schedule | Automerge |
+|---|---|---|---|
+| Patch | 3 days | Weekly (Monday, before 4am UTC) | Yes |
+| Minor | 3 days | Weekly (Monday, before 4am UTC) | Yes |
+| Major | 7 days | Monthly (1st, before 4am UTC) | No — manual review |
+| Lockfile maintenance | — | Weekly (Sunday, before 4am UTC) | Yes |
 
-This configuration is designed to reduce dependency-update noise while still keeping dependencies reasonably up to date.
+* **Internal checks:** Strict for all updates
+* **Version strategy:** Library dependencies are pinned to exact versions (`rangeStrategy: pin`) so each bump is explicit and gets its own pkg.pr preview build
+* **Grouping:** All non-major updates are grouped into a single weekly PR to reduce review overhead
+* **Concurrency:** Max 8 open PRs and 3 new PRs per hour, to avoid flooding multiple repos at once
+
+This configuration is designed to spread dependency updates out over time, lean on CI as the real safety gate, and reserve manual review for major version bumps only.
