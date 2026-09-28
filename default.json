@@ -26,17 +26,6 @@
       "platformAutomerge": true
     },
     {
-      "packageRules": [
-        {
-          "description": "Pin exact versions for libraries, so pkg.pr previews build against a known, reviewable version",
-          "matchDepTypes": [
-            "dependencies"
-          ],
-          "rangeStrategy": "pin"
-        }
-      ]
-    },
-    {
       "description": "Major: longer delay, no automerge, reviewed by hand",
       "matchUpdateTypes": [
         "major"

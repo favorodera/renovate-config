@@ -10,7 +10,6 @@ Opinionated [Renovate](https://docs.renovatebot.com/) configuration for keeping 
 * Runs patch/minor updates weekly, grouped into a single PR
 * Runs major updates monthly, left for manual review
 * Automerges patch/minor updates and lockfile maintenance once CI passes
-* Pins library dependencies to exact versions for reviewable, individually-tested bumps
 * Limits concurrent and hourly PR volume across repos
 
 ## Usage
@@ -35,7 +34,6 @@ Requires your repo's branch protection to require your CI checks (lint, build, t
 | Lockfile maintenance | — | Weekly (Sunday, before 4am UTC) | Yes |
 
 * **Internal checks:** Strict for all updates
-* **Version strategy:** Library dependencies are pinned to exact versions (`rangeStrategy: pin`) so each bump is explicit and gets its own pkg.pr preview build
 * **Grouping:** All non-major updates are grouped into a single weekly PR to reduce review overhead
 * **Concurrency:** Max 8 open PRs and 3 new PRs per hour, to avoid flooding multiple repos at once
 
