@@ -36,20 +36,6 @@
       "schedule": [
         "before 4am on the first day of the month"
       ]
-    },
-    {
-      "description": "Lockfile-only maintenance, low risk, safe to automerge",
-      "matchUpdateTypes": [
-        "lockFileMaintenance"
-      ],
-      "automerge": true
     }
-  ],
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true,
-    "schedule": [
-      "before 4am on sunday"
-    ]
-  }
+  ]
 }

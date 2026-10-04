@@ -9,7 +9,6 @@ Opinionated [Renovate](https://docs.renovatebot.com/) configuration for keeping 
 * Uses semantic commits with `chore` as the commit type
 * Runs patch/minor updates weekly, grouped into a single PR
 * Runs major updates monthly, left for manual review
-* Automerges patch/minor updates and lockfile maintenance once CI passes
 * Limits concurrent and hourly PR volume across repos
 
 ## Usage
@@ -31,7 +30,6 @@ Requires your repo's branch protection to require your CI checks (lint, build, t
 | Patch | 3 days | Weekly (Monday, before 4am UTC) | Yes |
 | Minor | 3 days | Weekly (Monday, before 4am UTC) | Yes |
 | Major | 7 days | Monthly (1st, before 4am UTC) | No — manual review |
-| Lockfile maintenance | — | Weekly (Sunday, before 4am UTC) | Yes |
 
 * **Internal checks:** Strict for all updates
 * **Grouping:** All non-major updates are grouped into a single weekly PR to reduce review overhead
