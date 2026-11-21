@@ -10,6 +10,7 @@
   ],
   "timezone": "UTC",
   "prConcurrentLimit": 8,
+  "rangeStrategy": "bump",
   "prHourlyLimit": 3,
   "packageRules": [
     {
